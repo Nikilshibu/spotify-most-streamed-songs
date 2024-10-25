@@ -1,15 +1,20 @@
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 
-# Specify the path to the WebDriver
-driver = webdriver.Chrome(executable_path='path_to_your_chromedriver')
+#Set up WebDriver (this example uses Chrome)
+driver = webdriver.Chrome()
 
-# Open a website
-driver.get('https://www.example.com')
+# Open Google
+driver.get("https://www.google.com")
 
-# Perform actions (e.g., finding an element, clicking, etc.)
-# element = driver.find_element_by_name('q')  # Example for searching
-# element.send_keys('Selenium')
-# element.submit()
+# Find the search box using its name attribute
+search_box = driver.find_element("name", "q")
+
+# Type a search query
+search_box.send_keys("Selenium testing in Windows")
+
+# Simulate pressing the Enter key
+search_box.send_keys(Keys.RETURN)
 
 # Close the browser
 driver.quit()
