@@ -1,25 +1,14 @@
-# Import necessary libraries
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
+# Assuming you have cleaned the data or used a method to handle errors
+data = pd.read_csv('Spotify Most Streamed Songs.csv', delimiter=',', engine='python', on_bad_lines='skip')
 
-# Load the dataset
-data = pd.read_csv('spotify_most_streamed_songs.csv')
+# Continue with logistic regression code after loading the dataset successfully
+data.columns = data.columns.str.replace('\t', '').str.strip()
+print(data.columns)
 
-# Preprocess the data (e.g., drop rows with missing values)
-data = data.dropna()
-
-# Assume we have created a 'Hit' column based on a threshold of streams
-# For example: data['Hit'] = np.where(data['Streams'] > 1000000000, 1, 0)
-
-# Select features and the binary target
-features = ['Release_Year', 'Duration_ms', 'Danceability', 'Energy', 'Tempo']
+# Assume we have a 'Hit' column
+features = ['released_year', 'artist_count', 'in_spotify_playlists']
 X = data[features]
-y = data['Hit']
+y = data['streams']
 
 # Split the data into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -42,7 +31,7 @@ print(conf_matrix)
 print("Classification Report:")
 print(class_report)
 
-# Optional: Visualize the Confusion Matrix
+# Visualize the Confusion Matrix
 sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues')
 plt.xlabel('Predicted')
 plt.ylabel('Actual')
